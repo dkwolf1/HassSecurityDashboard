@@ -9,6 +9,8 @@
   "privileged": ["NET_ADMIN"],
   "ingress": true,
   "ingress_port": 5000,
+  "panel_icon": "mdi:shield-check",
+  "panel_title": "Security",
   "arch": ["amd64", "aarch64", "armv7", "armhf", "i386"],
   "options": {
     "use_cloudflare": false,
