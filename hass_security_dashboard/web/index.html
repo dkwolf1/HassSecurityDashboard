@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hass Security Dashboard</title>
+  <style>
+    body { font-family: sans-serif; background: #f9f9f9; padding: 2em; }
+    .card { background: white; padding: 1em; border-radius: 8px; margin: 1em 0; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+    .status.ok { color: green; }
+    .status.warning { color: orange; }
+    .status.fail { color: red; }
+    pre { background: #eee; padding: 1em; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>Hass Security Dashboard</h1>
+  <div id="dashboard">Loading...</div>
+  <script>
+    async function loadStatus() {
+      const res = await fetch("/api/status");
+      const data = await res.json();
+      const dash = document.getElementById("dashboard");
+      dash.innerHTML = "";
+      for (const [key, result] of Object.entries(data)) {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = \`
+          <h2>\${key.toUpperCase()}</h2>
+          <div class="status \${result.status}">Status: \${result.status}</div>
+          <details><summary>View log</summary><pre>\${result.log}</pre></details>
+        \`;
+        dash.appendChild(card);
+      }
+    }
+    loadStatus();
+  </script>
+</body>
+</html>
