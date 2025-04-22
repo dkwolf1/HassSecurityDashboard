@@ -1,7 +1,7 @@
 {
   "name": "Hass Security Dashboard",
   "version": "0.1.0",
-  "slug": "hass_security_dashboard/",
+  "slug": "hass_security_dashboard",
   "description": "Security scanner dashboard for Home Assistant OS",
   "startup": "services",
   "boot": "auto",
