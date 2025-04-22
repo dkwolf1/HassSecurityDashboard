@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, send_from_directory
 from scanners import ports, ssl, duckdns, cloudflare, mosquitto, ssh, ha_config
+from waitress import serve
 import os
 
 app = Flask(__name__, static_folder="web")
@@ -27,3 +28,6 @@ def logs(scanner):
         with open(log_path) as f:
             return f.read(), 200, {'Content-Type': 'text/plain'}
     return "Log not found", 404
+
+if __name__ == "__main__":
+    serve(app, host="0.0.0.0", port=5000)
