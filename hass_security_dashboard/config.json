@@ -7,6 +7,8 @@
   "boot": "auto",
   "host_network": true,
   "privileged": ["NET_ADMIN"],
+  "ingress": true,
+  "ingress_port": 5000,
   "arch": ["amd64", "aarch64", "armv7", "armhf", "i386"],
   "options": {
     "use_cloudflare": false,
@@ -15,10 +17,5 @@
   "schema": {
     "use_cloudflare": "bool",
     "cloudflare_api_token": "str?"
-  },
-  "ports": {
-    "5000/tcp": 5000
-  },
-  "webui": "http://[HOST]:[PORT:5000]",
-  "ingress": false
+  }
 }
