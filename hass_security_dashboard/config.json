@@ -1,1 +1,23 @@
- 
+{
+  "name": "Hass Security Dashboard",
+  "version": "0.1.0",
+  "slug": "hass_security_dashboard",
+  "description": "Security scanner dashboard for Home Assistant OS",
+  "startup": "services",
+  "boot": "auto",
+  "host_network": true,
+  "privileged": ["NET_ADMIN"],
+  "options": {
+    "use_cloudflare": false,
+    "cloudflare_api_token": ""
+  },
+  "schema": {
+    "use_cloudflare": "bool",
+    "cloudflare_api_token": "str?"
+  },
+  "ports": {
+    "5000/tcp": 5000
+  },
+  "webui": "http://[HOST]:[PORT:5000]",
+  "ingress": false
+}
