@@ -1,4 +1,4 @@
-## 🛡️ Hass Security Dashboard
+## 🛡️ Hass Security Dashboard ( UNDER DEVELOPMENT) 
 
 **A powerful security auditing add-on for Home Assistant OS with a graphical interface.**
 
