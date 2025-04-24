@@ -1,0 +1,27 @@
+{
+  "name": "Hass Security Dashboard",
+  "version": "0.1.0",
+  "slug": "hass_security_dashboard",
+  "description": "Beveiligingsdashboard voor Home Assistant met UI en scanners.",
+  "url": "https://github.com/dkwolf1/HassSecurityDashboard",
+  "startup": "application",
+  "boot": "auto",
+  "ingress": true,
+  "ingress_port": 5000,
+  "panel_icon": "mdi:shield-check",
+  "panel_title": "Security Dashboard",
+  "panel_admin": true,
+  "webui": "http://[HOST]:[PORT]",
+  "arch": ["amd64", "aarch64"],
+  "host_network": true,
+  "privileged": ["NET_ADMIN"],
+  "map": ["config:ro", "ssl", "addons"],
+  "options": {
+    "cloudflare_token": "",
+    "language": "en"
+  },
+  "schema": {
+    "cloudflare_token": "str?",
+    "language": "enum(en|nl)"
+  }
+}
