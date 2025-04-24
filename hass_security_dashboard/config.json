@@ -1,0 +1,14 @@
+{
+  "name": "Hass Debug Ingress Test",
+  "version": "1.0.0",
+  "slug": "hass_debug_ingress",
+  "description": "Test add-on voor Ingress en headers",
+  "startup": "services",
+  "boot": "auto",
+  "host_network": true,
+  "ingress": true,
+  "ingress_port": 5000,
+  "panel_icon": "mdi:flask",
+  "panel_title": "Ingress Test",
+  "arch": ["amd64", "aarch64", "armv7", "armhf", "i386"]
+}
