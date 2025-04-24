@@ -1,0 +1,14 @@
+{
+  "name": "Hass Security Dashboard",
+  "version": "1.0.0",
+  "slug": "hass_security_dashboard",
+  "description": "Complete UI security check for Home Assistant (Ingress ready)",
+  "startup": "services",
+  "boot": "auto",
+  "ingress": true,
+  "ingress_port": 5000,
+  "panel_icon": "mdi:shield-home",
+  "panel_title": "Security",
+  "host_network": true,
+  "arch": ["amd64", "aarch64", "armv7", "armhf", "i386"]
+}
