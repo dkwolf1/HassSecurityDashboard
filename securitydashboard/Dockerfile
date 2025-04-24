@@ -1,24 +1,12 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/hassio-addons/base-python:3.11
 FROM $BUILD_FROM
 
-# Om pip goed te laten werken
-ENV LANG C.UTF-8
+# Installeer alleen Flask (pip is al aanwezig)
+RUN pip3 install --no-cache-dir flask
 
-# Vereisten installeren
-RUN apk add --no-cache \
-    python3 \
-    py3-pip \
-    bash \
-    build-base \
-    libffi-dev \
-    openssl-dev \
-    && pip3 install --upgrade pip setuptools wheel \
-    && pip3 install flask
-
-# Bestanden van de rootfs toevoegen
 COPY rootfs/ /
 
-# Zorg dat scripts uitvoerbaar zijn
 RUN chmod a+x /usr/local/bin/app.py /run.sh
 
 CMD [ "/run.sh" ]
+]
