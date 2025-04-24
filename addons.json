@@ -1,3 +1,12 @@
 {
-  "hass_security_dashboard": "./hass_security_dashboard"
+  "addons": [
+    {
+      "name": "Hass Security Dashboard",
+      "slug": "hass_security_dashboard",
+      "description": "Beveiligingsdashboard voor Home Assistant",
+      "url": "https://github.com/dkwolf1/HassSecurityDashboard/tree/main/hass-security-dashboard",
+      "maintainer": "dkwolf1",
+      "advanced": false
+    }
+  ]
 }
