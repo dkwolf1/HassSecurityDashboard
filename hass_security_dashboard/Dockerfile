@@ -2,18 +2,24 @@ ARG BUILD_FROM
 FROM ${BUILD_FROM} AS base
 LABEL maintainer="dkwolf1"
 
-# Install runtime dependencies
+# 1) Installeer systeem-deps
 RUN apk add --no-cache \
-    nginx \
     s6-overlay \
     openssl \
     nmap \
-    curl
+    curl \
+    # voor eventuele nginx-proxy (optioneel)
+    nginx
 
-# Copy add-on files
-COPY rootfs/ /
+# 2) Copy backend code en installeer Python-deps
+COPY hass_security_dashboard/app/dashboard /app/dashboard
+WORKDIR /app/dashboard
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose if ingress disabled
+# 3) Copy rootfs (entrypoints, www, services)
+COPY hass_security_dashboard/rootfs/ /
+
+# 4) Poort als ingress uitstaat
 EXPOSE 8123
 
 ENTRYPOINT ["/init"]
