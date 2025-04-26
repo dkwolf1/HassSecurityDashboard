@@ -1,0 +1,5 @@
+Flask
+APScheduler
+requests
+nmap
+paho-mqtt
