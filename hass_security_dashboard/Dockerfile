@@ -1,12 +1,12 @@
-FROM python:3.11-slim
+FROM debian:bullseye-slim
 
 WORKDIR /app
 
-COPY requirements.txt .
+COPY requirements.txt /app/
 RUN apt-get update && \
-    apt-get install -y nmap gcc && \
-    pip install --no-cache-dir -r requirements.txt
+    apt-get install -y python3 python3-pip python3-dev nmap gcc && \
+    pip3 install --no-cache-dir -r /app/requirements.txt
 
-COPY . .
+COPY . /app/
 
 CMD ["bash", "/app/run.sh"]
