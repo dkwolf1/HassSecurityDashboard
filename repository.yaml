@@ -1,11 +1,5 @@
-addons:
-  - name: Hass Security Dashboard
-    slug: hass_security_dashboard
-    description: Visual security audit for Home Assistant.
-    url: https://github.com/dkwolf1/HassSecurityDashboard/tree/main/hass_security_dashboard
-    maintainer: dkwolf1
-    version: 1.0.0
-    arch:
-      - amd64
-      - aarch64
-      - armv7
+{
+  "name": "Hass Security Add-ons",
+  "url": "https://github.com/dkwolf1/HassSecurityDashboard",
+  "maintainer": "dkwolf1"
+}
