@@ -1,12 +1,18 @@
-FROM debian:bullseye-slim
+ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:3.18
+FROM ${BUILD_FROM}
+
+ENV LANG C.UTF-8
 
 WORKDIR /app
 
-COPY requirements.txt /app/
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip python3-dev nmap gcc && \
-    pip3 install --no-cache-dir -r /app/requirements.txt
+# Install system dependencies
+RUN apk add --no-cache python3 py3-pip py3-numpy py3-gcc py3-setuptools nmap
 
-COPY . /app/
+# Copy requirements and install Python packages
+COPY requirements.txt .
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-CMD ["bash", "/app/run.sh"]
+# Copy the rest of the application
+COPY . .
+
+CMD [ "bash", "/app/run.sh" ]
