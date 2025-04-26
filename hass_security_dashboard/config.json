@@ -4,6 +4,11 @@
   "slug": "hass_security_dashboard",
   "description": "Audit your Home Assistant server's security: ports, SSL, MQTT, Cloudflare.",
   "arch": ["amd64", "aarch64", "armv7"],
+  "build_from": {
+    "amd64": "ghcr.io/home-assistant/amd64-base:3.18",
+    "aarch64": "ghcr.io/home-assistant/aarch64-base:3.18",
+    "armv7": "ghcr.io/home-assistant/armv7-base:3.18"
+  },
   "startup": "services",
   "boot": "auto",
   "ingress": true,
@@ -23,4 +28,6 @@
   "ports": {
     "5000/tcp": 5000
   }
+}
+
 }
