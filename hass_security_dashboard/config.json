@@ -2,7 +2,7 @@
   "name": "HassSecurityDashboard",
   "version": "1.0.0",
   "slug": "hass_security_dashboard",
-  "description": "Audit your Home Assistant server's security.",
+  "description": "Audit your Home Assistant server's security: ports, SSL, MQTT, Cloudflare.",
   "arch": ["amd64", "aarch64", "armv7"],
   "startup": "services",
   "boot": "auto",
@@ -23,6 +23,4 @@
   "ports": {
     "5000/tcp": 5000
   }
-}
-
 }
