@@ -11,8 +11,7 @@ RUN apk add --no-cache \
         python3 \
         py3-pip \
         py3-numpy \
-        gcc \
-        nmap && \
+        gcc && \
     pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
