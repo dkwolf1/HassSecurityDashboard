@@ -1,5 +1,4 @@
 Flask
-APScheduler
 requests
 paho-mqtt
 PyYAML
