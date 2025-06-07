@@ -39,3 +39,11 @@ Edit `config.json` or the add-on options in Home Assistant:
 
 > Use this tool to secure your smart home before attackers try to.
 
+
+### Running tests
+Use `pytest` to run the test suite:
+
+```bash
+pytest
+```
+
