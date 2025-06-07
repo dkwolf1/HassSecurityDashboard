@@ -13,6 +13,7 @@ This add-on scans your Home Assistant server and ecosystem for security vulnerab
 - 🧩 Home Assistant config security parser (`configuration.yaml`)
 - 🖥️ SSH terminal add-on check (auth & exposure)
 - 🌐 Web-based interface with multilingual support (🇬🇧 English / 🇳🇱 Dutch)
+  - Use the language selector at the top of the dashboard to switch translations
 - 📝 Per-module logs + downloadable full report
 
 ### 🧠 Built with

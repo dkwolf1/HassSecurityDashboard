@@ -1,0 +1,11 @@
+{
+  "title": "Security Dashboard",
+  "appName": "HassSecurityDashboard",
+  "runScan": "Run Security Scan",
+  "language": "Language",
+  "openPorts": "Open Ports",
+  "sslDaysLeft": "SSL Days Left",
+  "mqttSecure": "MQTT Secure",
+  "cloudflareProtected": "Cloudflare Protected",
+  "recommendations": "Recommendations"
+}

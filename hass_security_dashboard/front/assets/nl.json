@@ -1,0 +1,11 @@
+{
+  "title": "Beveiligingsdashboard",
+  "appName": "HassSecurityDashboard",
+  "runScan": "Beveiligingsscan uitvoeren",
+  "language": "Taal",
+  "openPorts": "Open poorten",
+  "sslDaysLeft": "SSL-dagen resterend",
+  "mqttSecure": "MQTT beveiligd",
+  "cloudflareProtected": "Cloudflare beveiligd",
+  "recommendations": "Aanbevelingen"
+}
