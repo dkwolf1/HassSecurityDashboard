@@ -2,9 +2,9 @@ import socket
 import ssl
 import datetime
 import requests
-import subprocess
-import json
 import yaml
+
+from ha_cli_utils import get_addon_info, get_core_info
 
 def scan_open_ports(host='localhost', ports=[22, 80, 443, 1883, 8883]):
     open_ports = []
@@ -89,21 +89,16 @@ def parse_configuration(path):
         results["error"] = str(e)
     return results
 
-def check_ssh_addon():
-    """Use HA CLI to check SSH add-on state."""
-    try:
-        out = subprocess.check_output([
-            "ha",
-            "addons",
-            "info",
-            "core_ssh",
-            "--raw-json",
-        ], text=True)
-        data = json.loads(out)
-        return data.get("state") == "started"
-    except Exception as e:
-        print(f"SSH add-on check failed: {e}")
+def get_ssh_addon_details():
+    """Return details of the SSH add-on using the HA CLI."""
+    info = get_addon_info("core_ssh")
+    if info is None:
         return None
+    return {
+        "running": info.get("state") == "started",
+        "version": info.get("version"),
+        "update_available": info.get("update_available"),
+    }
 
 def perform_full_scan(domain, api_token, duckdns_domain=None, config_path=None):
     host = "localhost"
@@ -125,7 +120,8 @@ def perform_full_scan(domain, api_token, duckdns_domain=None, config_path=None):
     if config_path:
         config_security = parse_configuration(config_path)
 
-    ssh_running = check_ssh_addon()
+    ssh_addon = get_ssh_addon_details()
+    core_info = get_core_info()
 
     return {
         "open_ports": open_ports,
@@ -134,5 +130,6 @@ def perform_full_scan(domain, api_token, duckdns_domain=None, config_path=None):
         "cloudflare_protected": cloudflare_protected,
         "duckdns_match": duckdns_ok,
         "config_security": config_security,
-        "ssh_addon_running": ssh_running,
+        "ssh_addon": ssh_addon,
+        "core": core_info,
     }
