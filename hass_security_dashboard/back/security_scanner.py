@@ -56,13 +56,27 @@ def check_cloudflare(domain, api_token):
     try:
         headers = {
             "Authorization": f"Bearer {api_token}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
         }
-        zone_resp = requests.get("https://api.cloudflare.com/client/v4/zones", headers=headers)
-        zones = zone_resp.json()["result"]
+
+        zone_resp = requests.get(
+            "https://api.cloudflare.com/client/v4/zones", headers=headers
+        )
+        zones = zone_resp.json().get("result", [])
+
         for zone in zones:
-            if domain.endswith(zone["name"]):
-                return True
+            if domain.endswith(zone.get("name", "")):
+                records_resp = requests.get(
+                    f"https://api.cloudflare.com/client/v4/zones/{zone['id']}/dns_records",
+                    headers=headers,
+                )
+                records = records_resp.json().get("result", [])
+
+                for record in records:
+                    if record.get("name") == domain and record.get("proxied"):
+                        return True
+                return False
+
         return False
     except Exception as e:
         logger.warning("Cloudflare check failed: %s", e)
