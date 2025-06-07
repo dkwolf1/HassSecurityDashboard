@@ -1,0 +1,22 @@
+# Ignore Python cache and egg files
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Ignore Git and GitHub metadata
+.git/
+.github/
+
+# Ignore tests and test caches
+tests/
+.pytest_cache/
+
+# Ignore editor directories and OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Ignore other development artifacts
+.env
+
