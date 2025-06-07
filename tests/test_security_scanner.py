@@ -51,3 +51,29 @@ def test_perform_full_scan_aggregates_results():
     assert results['config_security'] == {'http_ssl': True}
     assert results['ssh_addon'] == {'running': True}
     assert results['core'] == {'version': '1.0'}
+
+
+def test_check_cloudflare_proxied_true():
+    mock_zone_resp = MagicMock()
+    mock_zone_resp.json.return_value = {
+        'result': [{'id': 'z1', 'name': 'example.com'}]
+    }
+    mock_dns_resp = MagicMock()
+    mock_dns_resp.json.return_value = {
+        'result': [{'name': 'sub.example.com', 'proxied': True}]
+    }
+    with patch('requests.get', side_effect=[mock_zone_resp, mock_dns_resp]):
+        assert ss.check_cloudflare('sub.example.com', 'token') is True
+
+
+def test_check_cloudflare_proxied_false():
+    mock_zone_resp = MagicMock()
+    mock_zone_resp.json.return_value = {
+        'result': [{'id': 'z1', 'name': 'example.com'}]
+    }
+    mock_dns_resp = MagicMock()
+    mock_dns_resp.json.return_value = {
+        'result': [{'name': 'sub.example.com', 'proxied': False}]
+    }
+    with patch('requests.get', side_effect=[mock_zone_resp, mock_dns_resp]):
+        assert ss.check_cloudflare('sub.example.com', 'token') is False
