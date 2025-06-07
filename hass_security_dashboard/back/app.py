@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, send_file
+from flask import Flask, jsonify, request, send_file, send_from_directory
 from security_scanner import perform_full_scan
 from recommender import generate_recommendations
 import logging
@@ -6,7 +6,7 @@ import json
 import os
 from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='front/assets')
 
 # Configuration from environment variables set in run.sh
 PORT = int(os.environ.get("PORT", 5000))
@@ -26,6 +26,11 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+@app.route('/')
+def index():
+    """Serve the dashboard main page."""
+    return send_from_directory('front', 'index.html')
 
 @app.route('/scan', methods=['POST'])
 def scan():
