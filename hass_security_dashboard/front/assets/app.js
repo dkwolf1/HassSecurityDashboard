@@ -27,11 +27,17 @@ function switchLanguage(lang) {
 }
 
 function displayScanResults(data) {
-    document.getElementById('score').innerHTML =
-        translations.openPorts + ': ' + data.scan.open_ports.join(', ') +
-        '<br>' + translations.sslDaysLeft + ': ' + data.scan.ssl_days_left +
-        '<br>' + translations.mqttSecure + ': ' + data.scan.mqtt_secure +
-        '<br>' + translations.cloudflareProtected + ': ' + data.scan.cloudflare_protected;
+    const scan = data.scan;
+    let html =
+        translations.openPorts + ': ' + scan.open_ports.join(', ') +
+        '<br>' + translations.sslDaysLeft + ': ' + scan.ssl_days_left +
+        '<br>' + translations.mqttSecure + ': ' + scan.mqtt_secure +
+        '<br>' + translations.cloudflareProtected + ': ' + scan.cloudflare_protected +
+        '<br>' + translations.duckdnsMatch + ': ' + scan.duckdns_match +
+        '<br>' + translations.configSecurity + ': ' + JSON.stringify(scan.config_security) +
+        '<br>' + translations.sshAddon + ': ' + JSON.stringify(scan.ssh_addon) +
+        '<br>' + translations.coreInfo + ': ' + JSON.stringify(scan.core);
+    document.getElementById('score').innerHTML = html;
     document.getElementById('recommendations').innerHTML =
         translations.recommendations + ':<br>' + data.recommendations.join('<br>');
 }
