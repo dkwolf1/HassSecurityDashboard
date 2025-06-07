@@ -7,5 +7,6 @@
   "sslDaysLeft": "SSL-dagen resterend",
   "mqttSecure": "MQTT beveiligd",
   "cloudflareProtected": "Cloudflare beveiligd",
-  "recommendations": "Aanbevelingen"
+  "recommendations": "Aanbevelingen",
+  "downloadReport": "Rapport downloaden"
 }

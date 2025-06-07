@@ -7,5 +7,6 @@
   "sslDaysLeft": "SSL Days Left",
   "mqttSecure": "MQTT Secure",
   "cloudflareProtected": "Cloudflare Protected",
-  "recommendations": "Recommendations"
+  "recommendations": "Recommendations",
+  "downloadReport": "Download Report"
 }

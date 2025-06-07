@@ -9,6 +9,9 @@ function loadLanguage(lang) {
             document.title = data.title;
             document.getElementById('appName').innerText = data.appName;
             document.getElementById('runScan').innerText = data.runScan;
+            if (document.getElementById('downloadReport')) {
+                document.getElementById('downloadReport').innerText = data.downloadReport;
+            }
             document.getElementById('langLabel').innerText = data.language + ':';
         });
 }
@@ -33,16 +36,25 @@ function displayScanResults(data) {
         translations.recommendations + ':<br>' + data.recommendations.join('<br>');
 }
 
+function downloadReport() {
+    window.location.href = '/report';
+}
+
 function scan() {
     fetch('/scan', {method: 'POST'})
     .then(response => response.json())
     .then(data => {
         lastScanData = data;
         displayScanResults(data);
+        document.getElementById('downloadReport').style.display = 'inline-block';
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const lang = localStorage.getItem('lang') || 'en';
     switchLanguage(lang);
+    const btn = document.getElementById('downloadReport');
+    if (btn) {
+        btn.style.display = 'none';
+    }
 });
