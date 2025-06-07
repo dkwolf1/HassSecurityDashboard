@@ -9,11 +9,18 @@ app = Flask(__name__)
 PORT = int(os.environ.get("PORT", 5000))
 CLOUDFLARE_API_TOKEN = os.environ.get("CLOUDFLARE_API_TOKEN", "")
 CLOUDFLARE_DOMAIN = os.environ.get("CLOUDFLARE_DOMAIN", "localhost")
+DUCKDNS_DOMAIN = os.environ.get("DUCKDNS_DOMAIN", "")
+CONFIG_PATH = os.environ.get("CONFIG_PATH", "/config/configuration.yaml")
 
 @app.route('/scan', methods=['POST'])
 def scan():
     """Run security scan and return results."""
-    results = perform_full_scan(CLOUDFLARE_DOMAIN, CLOUDFLARE_API_TOKEN)
+    results = perform_full_scan(
+        CLOUDFLARE_DOMAIN,
+        CLOUDFLARE_API_TOKEN,
+        duckdns_domain=DUCKDNS_DOMAIN,
+        config_path=CONFIG_PATH,
+    )
     recommendations = generate_recommendations(results)
     return jsonify({"scan": results, "recommendations": recommendations})
 

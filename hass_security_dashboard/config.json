@@ -18,12 +18,16 @@
   "options": {
     "port": 5000,
     "use_ingress": true,
-    "cloudflare_api_token": ""
+    "cloudflare_api_token": "",
+    "duckdns_domain": "",
+    "config_path": "/config/configuration.yaml"
   },
   "schema": {
     "port": "int",
     "use_ingress": "bool",
-    "cloudflare_api_token": "str?"
+    "cloudflare_api_token": "str?",
+    "duckdns_domain": "str?",
+    "config_path": "str?"
   },
   "ports": {
     "5000/tcp": 5000
