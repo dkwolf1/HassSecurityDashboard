@@ -129,7 +129,15 @@ def perform_full_scan(domain, api_token, duckdns_domain=None, config_path=None):
     logger.info("Starting full scan")
     host = "localhost"
     open_ports = scan_open_ports(host)
-    ssl_days_left = check_ssl_certificate(host)
+
+    # Prefer the external domains for SSL checks when provided
+    ssl_host = host
+    if duckdns_domain:
+        ssl_host = duckdns_domain
+    elif domain:
+        ssl_host = domain
+    ssl_days_left = check_ssl_certificate(ssl_host)
+
     mqtt_secure = check_mqtt_security(host)
 
     cloudflare_protected = False
