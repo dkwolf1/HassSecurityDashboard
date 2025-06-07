@@ -56,12 +56,17 @@ def check_cloudflare(domain, api_token):
         print(f"Cloudflare check failed: {e}")
         return None
 
-def perform_full_scan():
+def perform_full_scan(domain, api_token):
     host = 'localhost'
     open_ports = scan_open_ports(host)
     ssl_days_left = check_ssl_certificate(host)
     mqtt_secure = check_mqtt_security(host)
+
     cloudflare_protected = False
+    if api_token and domain:
+        result = check_cloudflare(domain, api_token)
+        if result is not None:
+            cloudflare_protected = result
 
     return {
         "open_ports": open_ports,
