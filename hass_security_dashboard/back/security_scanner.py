@@ -2,6 +2,9 @@ import socket
 import ssl
 import datetime
 import requests
+import subprocess
+import json
+import yaml
 
 def scan_open_ports(host='localhost', ports=[22, 80, 443, 1883, 8883]):
     open_ports = []
@@ -56,8 +59,54 @@ def check_cloudflare(domain, api_token):
         print(f"Cloudflare check failed: {e}")
         return None
 
-def perform_full_scan(domain, api_token):
-    host = 'localhost'
+def check_duckdns(domain):
+    """Verify DuckDNS domain resolves to current public IP."""
+    try:
+        public_ip = requests.get("https://api.ipify.org").text.strip()
+        resolved_ip = socket.gethostbyname(domain)
+        return public_ip == resolved_ip
+    except Exception as e:
+        print(f"DuckDNS check failed: {e}")
+        return None
+
+def parse_configuration(path):
+    """Parse configuration.yaml and flag insecure settings."""
+    results = {
+        "http_ssl": True,
+        "mqtt_has_password": True,
+    }
+    try:
+        with open(path, "r") as f:
+            data = yaml.safe_load(f) or {}
+        http_cfg = data.get("http", {}) or {}
+        if not http_cfg.get("ssl_certificate"):
+            results["http_ssl"] = False
+        mqtt_cfg = data.get("mqtt", {}) or {}
+        if isinstance(mqtt_cfg, dict) and not mqtt_cfg.get("password"):
+            results["mqtt_has_password"] = False
+    except Exception as e:
+        print(f"Config parse failed: {e}")
+        results["error"] = str(e)
+    return results
+
+def check_ssh_addon():
+    """Use HA CLI to check SSH add-on state."""
+    try:
+        out = subprocess.check_output([
+            "ha",
+            "addons",
+            "info",
+            "core_ssh",
+            "--raw-json",
+        ], text=True)
+        data = json.loads(out)
+        return data.get("state") == "started"
+    except Exception as e:
+        print(f"SSH add-on check failed: {e}")
+        return None
+
+def perform_full_scan(domain, api_token, duckdns_domain=None, config_path=None):
+    host = "localhost"
     open_ports = scan_open_ports(host)
     ssl_days_left = check_ssl_certificate(host)
     mqtt_secure = check_mqtt_security(host)
@@ -68,9 +117,22 @@ def perform_full_scan(domain, api_token):
         if result is not None:
             cloudflare_protected = result
 
+    duckdns_ok = None
+    if duckdns_domain:
+        duckdns_ok = check_duckdns(duckdns_domain)
+
+    config_security = {}
+    if config_path:
+        config_security = parse_configuration(config_path)
+
+    ssh_running = check_ssh_addon()
+
     return {
         "open_ports": open_ports,
         "ssl_days_left": ssl_days_left,
         "mqtt_secure": mqtt_secure,
-        "cloudflare_protected": cloudflare_protected
+        "cloudflare_protected": cloudflare_protected,
+        "duckdns_match": duckdns_ok,
+        "config_security": config_security,
+        "ssh_addon_running": ssh_running,
     }

@@ -29,5 +29,12 @@ This add-on scans your Home Assistant server and ecosystem for security vulnerab
 - Network access (`host`) + privileges (`NET_ADMIN`)
 - Optional: Cloudflare API token
 
+### Configuration Options
+Edit `config.json` or the add-on options in Home Assistant:
+
+- `cloudflare_api_token` – API token for checking Cloudflare protection.
+- `duckdns_domain` – DuckDNS hostname to verify against your public IP.
+- `config_path` – Path to `configuration.yaml` for security parsing.
+
 > Use this tool to secure your smart home before attackers try to.
 

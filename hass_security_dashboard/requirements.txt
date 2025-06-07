@@ -3,3 +3,5 @@ APScheduler
 requests
 nmap
 paho-mqtt
+PyYAML
+
