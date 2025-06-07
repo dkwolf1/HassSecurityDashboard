@@ -7,6 +7,10 @@
   "sslDaysLeft": "SSL-dagen resterend",
   "mqttSecure": "MQTT beveiligd",
   "cloudflareProtected": "Cloudflare beveiligd",
+  "duckdnsMatch": "DuckDNS match",
+  "configSecurity": "Configuratiebeveiliging",
+  "sshAddon": "SSH-add-on",
+  "coreInfo": "Core-info",
   "recommendations": "Aanbevelingen",
   "downloadReport": "Rapport downloaden"
 }
