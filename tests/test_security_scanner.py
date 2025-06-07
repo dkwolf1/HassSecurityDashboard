@@ -35,7 +35,7 @@ def test_parse_configuration_missing_values(tmp_path):
 
 def test_perform_full_scan_aggregates_results():
     with patch.object(ss, 'scan_open_ports', return_value=[22]), \
-         patch.object(ss, 'check_ssl_certificate', return_value=10), \
+         patch.object(ss, 'check_ssl_certificate', return_value=10) as mock_ssl, \
          patch.object(ss, 'check_mqtt_security', return_value=True), \
          patch.object(ss, 'check_cloudflare', return_value=True), \
          patch.object(ss, 'check_duckdns', return_value=True), \
@@ -43,6 +43,7 @@ def test_perform_full_scan_aggregates_results():
          patch.object(ss, 'get_ssh_addon_details', return_value={'running': True}), \
          patch.object(ss, 'get_core_info', return_value={'version': '1.0'}):
         results = ss.perform_full_scan('example.com', 'token', 'sub.domain', '/tmp/config')
+    mock_ssl.assert_called_once_with('sub.domain')
     assert results['open_ports'] == [22]
     assert results['ssl_days_left'] == 10
     assert results['mqtt_secure'] is True
@@ -77,3 +78,15 @@ def test_check_cloudflare_proxied_false():
     }
     with patch('requests.get', side_effect=[mock_zone_resp, mock_dns_resp]):
         assert ss.check_cloudflare('sub.example.com', 'token') is False
+
+
+def test_perform_full_scan_uses_domain_for_ssl_check():
+    with patch.object(ss, 'scan_open_ports', return_value=[]), \
+         patch.object(ss, 'check_ssl_certificate', return_value=5) as mock_ssl, \
+         patch.object(ss, 'check_mqtt_security', return_value=True), \
+         patch.object(ss, 'check_cloudflare', return_value=False), \
+         patch.object(ss, 'parse_configuration', return_value={}), \
+         patch.object(ss, 'get_ssh_addon_details', return_value=None), \
+         patch.object(ss, 'get_core_info', return_value={}):
+        ss.perform_full_scan('example.com', 'token', None, None)
+    mock_ssl.assert_called_once_with('example.com')
