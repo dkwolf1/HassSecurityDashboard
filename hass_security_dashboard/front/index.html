@@ -6,8 +6,15 @@
     <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
-    <h1>HassSecurityDashboard</h1>
-    <button onclick="scan()">Run Security Scan</button>
+    <h1 id="appName"></h1>
+    <div>
+        <label id="langLabel" for="lang-select">Language:</label>
+        <select id="lang-select" onchange="switchLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="nl">Nederlands</option>
+        </select>
+    </div>
+    <button id="runScan" onclick="scan()"></button>
     <div id="score"></div>
     <div id="recommendations"></div>
     <script src="assets/app.js"></script>
