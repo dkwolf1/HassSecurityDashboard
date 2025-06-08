@@ -6,7 +6,11 @@ import json
 import os
 from datetime import datetime
 
-app = Flask(__name__, static_folder='front/assets')
+BASE_DIR = os.path.dirname(__file__)
+FRONT_DIR = os.path.join(BASE_DIR, '..', 'front')
+STATIC_FOLDER = os.path.join(FRONT_DIR, 'assets')
+
+app = Flask(__name__, static_folder=STATIC_FOLDER)
 
 # Configuration from environment variables set in run.sh
 PORT = int(os.environ.get("PORT", 5000))
@@ -30,7 +34,7 @@ logger = logging.getLogger(__name__)
 @app.route('/')
 def index():
     """Serve the dashboard main page."""
-    return send_from_directory('front', 'index.html')
+    return send_from_directory(FRONT_DIR, 'index.html')
 
 @app.route('/scan', methods=['POST'])
 def scan():
