@@ -48,3 +48,8 @@ Use `pytest` to run the test suite:
 pytest
 ```
 
+### Troubleshooting
+If the Docker build fails while installing Python packages, ensure build
+dependencies are present. The Dockerfile now installs `gcc`, `musl-dev`,
+`python3-dev`, and `libffi-dev` before running `pip3 install`.
+
