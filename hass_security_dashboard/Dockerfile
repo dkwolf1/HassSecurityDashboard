@@ -16,6 +16,7 @@ RUN apk add --no-cache \
     pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
+RUN chmod +x /app/run.sh
 
-CMD ["bash", "/app/run.sh"]
+CMD ["/app/run.sh"]
 
