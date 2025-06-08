@@ -34,6 +34,7 @@ This add-on scans your Home Assistant server and ecosystem for security vulnerab
 Edit `config.json` or the add-on options in Home Assistant:
 
 - `cloudflare_api_token` – API token for checking Cloudflare protection.
+- `cloudflare_domain` – Domain served via Cloudflare to verify and use for SSL checks.
 - `duckdns_domain` – DuckDNS hostname to verify against your public IP.
 - `config_path` – Path to `configuration.yaml` for security parsing.
 

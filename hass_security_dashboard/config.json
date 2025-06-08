@@ -19,6 +19,7 @@
     "port": 5000,
     "use_ingress": true,
     "cloudflare_api_token": "",
+    "cloudflare_domain": "",
     "duckdns_domain": "",
     "config_path": "/config/configuration.yaml"
   },
@@ -26,6 +27,7 @@
     "port": "int",
     "use_ingress": "bool",
     "cloudflare_api_token": "str?",
+    "cloudflare_domain": "str?",
     "duckdns_domain": "str?",
     "config_path": "str?"
   },

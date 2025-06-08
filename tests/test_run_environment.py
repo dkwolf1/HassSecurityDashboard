@@ -14,6 +14,7 @@ bashio::config() {{
         port) echo "{options['port']}" ;;
         use_ingress) echo "{str(options['use_ingress']).lower()}" ;;
         cloudflare_api_token) echo "{options['cloudflare_api_token']}" ;;
+        cloudflare_domain) echo "{options['cloudflare_domain']}" ;;
         duckdns_domain) echo "{options['duckdns_domain']}" ;;
         config_path) echo "{options['config_path']}" ;;
     esac
@@ -21,6 +22,7 @@ bashio::config() {{
 flask() {{
     echo "PORT=$PORT"
     echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN"
+    echo "CLOUDFLARE_DOMAIN=$CLOUDFLARE_DOMAIN"
     echo "DUCKDNS_DOMAIN=$DUCKDNS_DOMAIN"
     echo "CONFIG_PATH=$CONFIG_PATH"
 }}
@@ -34,5 +36,6 @@ output = dict(line.split('=', 1) for line in result.stdout.strip().splitlines())
 def test_run_sh_uses_config_values():
     assert output['PORT'] == str(options['port'])
     assert output['CLOUDFLARE_API_TOKEN'] == options['cloudflare_api_token']
+    assert output['CLOUDFLARE_DOMAIN'] == options['cloudflare_domain']
     assert output['DUCKDNS_DOMAIN'] == options['duckdns_domain']
     assert output['CONFIG_PATH'] == options['config_path']
