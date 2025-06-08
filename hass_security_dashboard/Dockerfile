@@ -9,7 +9,11 @@ COPY requirements.txt .
 
 RUN apk add --no-cache \
         python3 \
-        py3-pip && \
+        py3-pip \
+        gcc \
+        musl-dev \
+        python3-dev \
+        libffi-dev && \
     pip3 install --no-cache-dir -r requirements.txt
 
 COPY . .
