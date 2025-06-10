@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/bashio
 export FLASK_APP=back/app.py
 
 # Read options from Hass.io configuration or environment variables
